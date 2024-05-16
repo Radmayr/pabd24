@@ -2,6 +2,7 @@
 import argparse
 import logging
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -33,11 +34,13 @@ def main(args):
 
     new_df = new_dataframe[new_dataframe['price'] < 30_000_000]
 
-    border = int(args.split * len(new_df))
-    train_df, val_df = new_df[0:border], new_df[border:-1]
-    train_df.to_csv(OUT_TRAIN)
-    val_df.to_csv(OUT_VAL)
-    logger.info(f'Write {args.input} to train.csv and val.csv. Train set size: {args.split}')
+    # border = int(args.split * len(new_df))
+    # train_df, val_df = new_df[0:border], new_df[border:-1]
+    test_size = 0.2
+    X_train, X_test = train_test_split(new_df, test_size = 0.2, random_state = 42)
+    X_train.to_csv(OUT_TRAIN)
+    X_test.to_csv(OUT_VAL)
+    logger.info(f'Write {args.input} to train.csv and val.csv. Train set size: {1-test_size}')
 
 
 if __name__ == '__main__':
