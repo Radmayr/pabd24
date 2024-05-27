@@ -14,7 +14,7 @@ config = dotenv_values(".env")
 auth = HTTPTokenAuth(scheme='Bearer')
 
 tokens = {
-    config["APP_TOKEN"]: "user1",
+    config["APP_TOKEN"]: "radmuire",
 }
 
 @auth.verify_token
