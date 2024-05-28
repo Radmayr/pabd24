@@ -30,8 +30,7 @@ download_from_s3.py
 preprocess_data.py
 ### 5. Обучение модели 
 
-todo Описание модели и входных параметров для предсказания здесь.  
-
+train_model.py
 ### 6. Запуск приложения flask 
 
 todo
