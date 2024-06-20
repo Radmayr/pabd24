@@ -10,7 +10,7 @@ CSV_PATH = ['data/raw/one_room_data.csv',
             'data/raw/two_room_data.csv',
             'data/raw/three_room_data.csv']
 
-config = dotenv_values("src/.env")
+config = dotenv_values(".env")
 
 
 def main(args):
