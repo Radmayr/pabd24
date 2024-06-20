@@ -1,4 +1,5 @@
 import argparse
+import numpy as np
 import logging
 import pandas as pd
 from sklearn.metrics import mean_absolute_error
@@ -13,23 +14,21 @@ logging.basicConfig(
 
 
 VAL_DATA = 'data/proc/val.csv'
-MODEL_PATH = 'models/linear_regression_v01.joblib'
+MODEL_PATH = 'models/Catboost_top.joblib'
 
 
 def main(args):
     df_val = pd.read_csv(VAL_DATA)
-    x_val = df_val[['total_meters']]
+    x_val = df_val[['rooms_count', 'author_type', 'floor', 'floors_count', 'first_floor', 'last_floor', 'total_meters', 'district']]
     y_val = df_val['price']
 
-    linear_model = load(args.model)
+    catboost_model = load(args.model)
     logger.info(f'Loaded model {args.model}')
 
-    y_pred = linear_model.predict(x_val)
+    y_pred = np.exp(catboost_model.predict(x_val))
     mae = mean_absolute_error(y_pred, y_val)
-    c = int(linear_model.coef_[0])
-    inter = int(linear_model.intercept_)
 
-    logger.info(f'MAE = {mae:.0f}     Price = {c} * area + {inter}')
+    logger.info(f'MAE = {mae:.0f}')
 
 
 
